@@ -134,7 +134,10 @@ $(window).on('keydown mousemove', function() {
         </section>
         
         <section>
-          <h1 class="eventstream-demo">Demo</h1>
+          <h2 class="eventstream-demo">Creating streams</h2>
+          <pre><code contenteditable>
+var singleEventStream = Bacon.once("POW")
+          </code></pre>
           <p class="notes">
           keyups, map, filter
           "wanna see flatMap"?
@@ -482,9 +485,9 @@ function TodoApp() {
 			});
 
 		</script>
-    <script src="bacon-preso.js">
-    </script>
     <script src="node_modules/baconjs/dist/Bacon.js"></script>
+    <script src="node_modules/lodash/dist/lodash.js"></script>
+    <script src="bacon-preso.js"> </script>
     <script src="/drums/drums.js"></script>
     <script>
 
@@ -500,14 +503,19 @@ function TodoApp() {
       var drums = Drums("drums/audio")
 
       document.addEventListener("drumsloaded", function() {
+        console.log("drums ready")
         //setEffect(3)
+      })
+
+
+      function playDrumsWithEcho() {
         Bacon.fromString(kickPattern).map("kick")
           .merge(Bacon.fromString(snarePattern).map("snare"))
           .map(withGain(0.5))
-//          .flatMap(echo)
+          .flatMap(echo)
           .log()
           .onValue(drums.play)
-      })
+      }
 
       function echo(drum) {
         return Bacon.sequentially(50, [1.0, 0.5, 0.3, 0.2, 0.1])
