@@ -1,0 +1,47 @@
+<html>
+  <head></head>
+  <body>
+    <script src="node_modules/baconjs/dist/Bacon.js"></script>
+    <script src="/drums/drums.js"></script>
+    <script>
+
+      Bacon.fromString = function(sting) { 
+        return Bacon
+         .sequentially(200, sting.split(""))
+         .filter(function(x) { return x == "*" })
+      }
+
+      var kickPattern = "*---*---*---*---"
+      var snarePattern = "--*---*---*---*--"
+
+      var drums = Drums("drums/audio")
+
+      document.addEventListener("drumsloaded", function() {
+        //setEffect(3)
+        Bacon.fromString(kickPattern).map("kick")
+          .merge(Bacon.fromString(snarePattern).map("snare"))
+          .map(withGain(0.5))
+          .flatMap(echo)
+          .log()
+          .onValue(drums.play)
+      })
+
+      function echo(drum) {
+        return Bacon.sequentially(50, [1.0, 0.5, 0.3, 0.2, 0.1])
+        .map(function(gain) {
+          return { name: drum.name, gain: drum.gain*gain }
+        })
+      }
+
+      function withGain(gain) {
+        return function(drum) {
+          return { name: drum, gain: gain }
+        }
+      }
+
+    </script>
+    <script>
+
+    </script>
+  </body>
+</html>
