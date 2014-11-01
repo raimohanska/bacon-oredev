@@ -25,7 +25,8 @@
 		"mustache" : "~0.4.0",
     "baconjs" : "~0.7",
     "bacon.matchers" : "~0",
-    "lodash" : "~2"
+    "lodash" : "~2",
+    "drums": "raimohanska/drums.js"
 	},
 	"devDependencies": {
 		"grunt-contrib-mincss": "~0.3.1",

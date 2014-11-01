@@ -13,3 +13,5 @@ APIs available in code editor
 - Bacon.js
 - Lodash
 - Bacon.Observable :: show
+- drums.play("kick" | "snare" | "hihat" | "tom1..3")
+

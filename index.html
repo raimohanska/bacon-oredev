@@ -81,7 +81,7 @@ $.ajax("/cats").done(function(cats) {
         </section>
         <section >
           <h2>State hell</h2>
-          <pre><code contenteditable>var active = true;
+          <pre><code contenteditable class="runnable">var active = true;
 var timeout = null;
 function setInactive() {
   bubble("asleep?")
@@ -138,7 +138,7 @@ bubble("Hello")
         
         <section>
           <h2 class="eventstream-demo">Creating streams</h2>
-          <pre><code contenteditable>
+          <pre><code contenteditable class="runnable">
 var singleEventStream = Bacon.once("POW")
           </code></pre>
           <p class="notes">
@@ -176,7 +176,7 @@ var singleEventStream = Bacon.once("POW")
           <div class="spreadsheet">
           <input type="text" id="a" placeholder="A"> + <input type="text" id="b" placeholder="B"> = <input type="text" id="c" placeholder="C">
           </div>
-          <pre><code contenteditable>
+          <pre><code contenteditable class="runnable">
           </code></pre>
         </section>
         <section>
@@ -255,7 +255,7 @@ bubble("hello")
     <script src="node_modules/baconjs/dist/Bacon.js"></script>
     <script src="node_modules/bacon.matchers/bacon.matchers.js"></script>
     <script src="node_modules/lodash/dist/lodash.js"></script>
-    <script src="/drums/drums.js"></script>
+    <script src="node_modules/drums.js/drums.js"></script>
     <script src="bacon-preso.js"> </script>
 	</body>
 </html>

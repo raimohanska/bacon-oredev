@@ -28,12 +28,6 @@ function keyState(keyCode, value) {
   return keyDowns(keyCode).map([value]).merge(keyUps(keyCode).map([])).toProperty([]).skipDuplicates()
 }
 
-function runCode() {
-  var code = $(".present code:visible")
-  code.blur()
-  eval(code.text())
-}
-
 function bubble(text) {
   var vmargin = $(window).height() * 0.1
   var vspace = $(window).height() - 100 - vmargin*2
@@ -94,5 +88,22 @@ function toDrum(s) {
   };
   return drums[s]
 }
+
+function runCode() {
+  var code = $(".present code:visible")
+  code.blur()
+  eval(code.text())
+}
+
+$("code.runnable").each(function() {
+  var runLink = $("<a>").text("run")
+    .addClass("runlink")
+    .css({
+      right: "0.3em",
+      position: "absolute", cursor: "pointer"
+    })
+  $(this).parent().append(runLink)
+  runLink.click(runCode)
+})
 
 keyUps(13, ["alt"]).doAction(".preventDefault").onValue(runCode)
