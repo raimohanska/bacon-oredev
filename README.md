@@ -1,3 +1,6 @@
+My bacon.js FRP preso for Oredev 2014. It's mostly about
+live coding, so the slides themselves don't give you much.
+
 Build and run
 
     npm install
