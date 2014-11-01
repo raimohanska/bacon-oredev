@@ -31,9 +31,10 @@ function keyState(keyCode, value) {
 function bubble(text) {
   var vmargin = $(window).height() * 0.1
   var vspace = $(window).height() - 100 - vmargin*2
-  makeBubble(2, 10, 1.0, 1.0)
-  makeBubble(1, -1, 0.3, 0.7)
-  makeBubble(0.5, -2, 0.15, 0.5)
+  var bubble = makeBubble(2, 10, 1.0, 1.0)
+  makeBubble(1.2, -1, 0.4, 0.7)
+  makeBubble(0.7, -1, 0.3, 0.5)
+  return bubble
   function makeBubble(fs, zind, op, hscale) {
     var top = (typeof text == "string") 
       ? (text.charCodeAt(0) % 5) * vspace / 5 + vmargin
@@ -41,7 +42,7 @@ function bubble(text) {
     var bsize = fs*2
     var bubble = $("<div>").text(text).addClass("bubble")
     var winWidth = $(window).width()
-    var startX = (1-hscale)/2*winWidth
+    var startX = (1-hscale)/2*winWidth - 100
     var endX = startX + (winWidth+100)*hscale
     bubble.css({
       opacity: op,
@@ -55,10 +56,13 @@ function bubble(text) {
       right: startX
     })
     $("body").append(bubble)
-    bubble.css({transition: "all 5s linear"})
+    bubble.css({transition: "right 5s linear, opacity 5s ease-in, transform 5s linear"})
     Bacon.later(0).onValue(function() {
-        bubble.css({right: endX, opacity: 0})
+        bubble.css({right: endX, opacity: 0, transform: "rotate(360deg)"})
     })
+    bubble.asEventStream("webkitTransitionEnd")
+      .onValue(function() { bubble.remove() })
+    return bubble
   }
 }
 
