@@ -7,3 +7,9 @@ Build and run
 Key bindings
 
     Alt-Enter = run code
+
+APIs available in code editor
+
+- Bacon.js
+- Lodash
+- Bacon.Observable :: show

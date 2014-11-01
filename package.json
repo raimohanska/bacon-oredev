@@ -23,6 +23,8 @@
 		"express" : "~3",
 		"socket.io" : "~0.9.6",
 		"mustache" : "~0.4.0",
+    "baconjs" : "~0.7",
+    "bacon.matchers" : "~0",
     "lodash" : "~2"
 	},
 	"devDependencies": {
