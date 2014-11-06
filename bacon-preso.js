@@ -96,7 +96,11 @@ function toDrum(s) {
 function runCode() {
   var code = $(".present code:visible")
   code.blur()
-  eval(code.text())
+  try {
+    eval(code.text())
+  } catch (e) {
+    alert(e)
+  }
 }
 
 function reloadCode() {
