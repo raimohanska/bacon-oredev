@@ -99,6 +99,18 @@ function runCode() {
   eval(code.text())
 }
 
+function reloadCode() {
+  localStorage.code =  $(".present pre code").get(0).innerHTML
+  document.location.reload()
+}
+
+(function() {
+  if (localStorage.code) {
+    $(".present pre code").get(0).innerHTML = (localStorage.code)
+    delete localStorage.code
+  }
+})()
+
 $("code.runnable").each(function() {
   var runLink = $("<a>").text("run")
     .addClass("runlink")
@@ -108,6 +120,15 @@ $("code.runnable").each(function() {
     })
   $(this).parent().append(runLink)
   runLink.click(runCode)
+
+  var reloadLink = $("<a>").text("reload")
+    .addClass("runlink")
+    .css({
+      right: "2.3em",
+      position: "absolute", cursor: "pointer"
+    })
+  reloadLink.click(reloadCode)
+  $(this).parent().append(reloadLink)
 })
 
 keyUps(13, ["alt"]).doAction(".preventDefault").onValue(runCode)
