@@ -103,14 +103,27 @@ function runCode() {
   }
 }
 
+function setCode(code) {
+  $(".present pre code").get(0).innerHTML = code
+}
+
+function getCode() {
+  return $(".present pre code").get(0).innerHTML
+}
+
 function reloadCode() {
-  localStorage.code =  $(".present pre code").get(0).innerHTML
+  localStorage.code = getCode()
+  document.location.reload()
+}
+
+function revealCode() {
+  localStorage.code =  $(".present endresult").get(0).innerHTML
   document.location.reload()
 }
 
 (function() {
   if (localStorage.code) {
-    $(".present pre code").get(0).innerHTML = (localStorage.code)
+    setCode(localStorage.code)
     delete localStorage.code
   }
 })()
@@ -133,6 +146,15 @@ $("code.runnable").each(function() {
     })
   reloadLink.click(reloadCode)
   $(this).parent().append(reloadLink)
+  
+  var revealLink = $("<a>").text("reveal")
+    .addClass("runLink")
+    .css({
+      right: "6.0em",
+      position: "absolute", cursor: "pointer"
+    })
+  revealLink.click(revealCode)
+  $(this).parent().append(revealLink)
 })
 
 keyUps(13, ["alt"]).doAction(".preventDefault").onValue(runCode)

@@ -147,6 +147,17 @@ bubble("hello")
           <pre><code contenteditable class="runnable">
 var singleEventStream = Bacon.once("POW")
           </code></pre>
+<endresult>
+var singleEventStream = Bacon.once("POW");
+var countdown = Bacon.sequentially(1000, [5,4,3,2,1,"POW"]);
+countdown.show()
+
+var keys = $(document).asEventStream("keyup")
+  .map(function(e) { return e.keyCode })
+  .filter(function(key) { return key == 38 }) // UP ARROW
+
+keys.show()  
+</endresult>
           <p class="notes">
           keyups, map, filter
           "wanna see flatMap"?
@@ -181,6 +192,14 @@ var singleEventStream = Bacon.once("POW")
           <h2 class="property-demo">KeyState</h2>
           <pre><code contenteditable class="runnable">
           </code></pre>
+<endresult>
+var keyState = keyUps(38).map(false)
+  .merge(keyDowns(38).map(true))
+  .skipDuplicates()
+  .toProperty(false)
+
+keyState.show()
+</endresult>
         </section>
         <section>
           <h2 class="property-demo">Spreadsheet</h2>
@@ -189,6 +208,21 @@ var singleEventStream = Bacon.once("POW")
           </div>
           <pre><code contenteditable class="runnable">
           </code></pre>
+<endresult>
+function fieldValue($field) {
+  function currentValue() { return $field.val() }
+  var changesE = $field.asEventStream("keyup");
+  return changesE.map(currentValue).toProperty(currentValue())
+}
+
+var a = fieldValue($("#a")).map(parseInt);
+var b = fieldValue($("#b")).map(parseInt);
+var c = a.combine(b, function(aVal, bVal) { return aVal + bVal })
+
+c.onValue(function(cVal) {
+  $("#c").val(cVal)
+})
+</endresult>
         </section>
         <section>
           <h2 class="property-demo">Shopping Cart</h2>
@@ -200,6 +234,26 @@ var singleEventStream = Bacon.once("POW")
           </div>
           <pre><code contenteditable class="runnable">
           </code></pre>
+          <endresult>
+var addE = $("#addItem").asEventStream("click")
+  .map(function() { return $("#itemName").val() })
+
+var removeE = $("#removeItem").asEventStream("click")
+
+var contentsP = Bacon.update([],
+  addE, function(items, newItem) { return items.concat(newItem) },
+  removeE, function(items) { return items.slice(1) }
+)
+
+contentsP.show()
+
+var checkoutE = $("#checkout").asEventStream("click")
+  .map(contentsP)
+
+checkoutE.onValue(function(contents) {
+  bubble("checkout: " + contents)
+})
+          </endresult>
         </section>
         
         <section>
