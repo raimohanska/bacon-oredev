@@ -1,8 +1,3 @@
-var drums = Drums("drums/audio")
-document.addEventListener("drumsloaded", function() {
-  console.log("drums ready")
-})
-
 function keyUps(keyCode, modifiers) { 
   return $(document).asEventStream("keyup")
                     .filter(filterKeys(keyCode, modifiers)) 
@@ -79,18 +74,6 @@ Bacon.fromString = function(sting, delay) {
      Bacon.sequentially(delay, values.slice(1))
    )
    .filter(function(x) { return x != "-" })
-}
-
-function toDrum(s) {
-  var drums = {
-    k: "kick",
-    s: "snare",
-    h: "hihat",
-    1: "tom1",
-    2: "tom2",
-    3: "tom3"
-  };
-  return drums[s]
 }
 
 function runCode() {
