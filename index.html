@@ -237,7 +237,7 @@ c.onValue(function(cVal) {
           </code></pre>
           <endresult>
 var addE = $("#addItem").asEventStream("click")
-  .map(function() { return $("#itemName").val() })
+  .flatMap(function() { return $("#itemName").val() })
 
 var removeE = $("#removeItem").asEventStream("click")
 
