@@ -1,5 +1,6 @@
-My bacon.js FRP preso for Oredev 2014. It's mostly about
-live coding, so the slides themselves don't give you much.
+My bacon.js FRP preso for Oredev 2014. 
+
+You can view the presentation online at http://raimohanska.github.io/bacon-oredev/. Please use the arrow keys to navigate left/right and the links below code snippets to run/reveal my example code.
 
 Build and run
 
